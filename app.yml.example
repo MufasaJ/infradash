@@ -1,0 +1,5 @@
+hosts:
+  - type: libvirt
+    address: "qemu+ssh://user@10.42.0.15/system"
+  - type: libvirt
+    address: "qemu:///system"
