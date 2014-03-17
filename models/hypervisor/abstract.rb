@@ -3,9 +3,12 @@ module Infradash
     class Abstract
 
       def self.connect(address)
-        @conn = new(address)
-        yield @conn
-        @conn.close
+        begin
+          conn = new(address)
+          yield conn
+        ensure
+          conn.close
+        end
       end
 
       def close
