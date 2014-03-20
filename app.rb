@@ -14,7 +14,6 @@ module Infradash
       conf = YAML.load_file('app.yml')
 
       @hypervisors = conf['hosts'].map do |host|
-
         if host['type'] == 'libvirt' then
           hypervisor = Struct.new(:address) do
             def connect
@@ -24,9 +23,10 @@ module Infradash
         else
           abort "Hypervisor #{host['type']} not supported."
         end
-
         hypervisor.new(host['address'])
       end
+
+      Domain::Abstract.db = conf['database']
     end
 
     get '/domain' do
@@ -61,7 +61,14 @@ module Infradash
               name: domain.name,
               state: domain.state,
               cpu: domain.cpu,
-              memory: domain.memory
+              memory: domain.memory,
+              responsible: domain.responsible,
+              organization: domain.organization,
+              client: domain.client,
+              project: domain.project,
+              environment: domain.environment,
+              description: domain.description,
+              ip: domain.ip
             }.to_json
 
           end

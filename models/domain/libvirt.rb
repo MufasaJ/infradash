@@ -6,6 +6,7 @@ module Infradash
 
       def initialize(domain)
         @domain = domain
+        super()
       end
 
       def id
@@ -17,7 +18,7 @@ module Infradash
       end
 
       def name
-        @domain.name
+        @domain.name.encode("UTF-8")
       end
 
       def state
