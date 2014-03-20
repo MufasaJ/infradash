@@ -51,6 +51,22 @@ module Infradash
       def memory
         @domain.info.max_mem
       end
+
+      def down(force = false)
+        if state != "shut off" then
+          if force then
+            @@domain.destroy
+          else
+            @domain.shutdown(0)
+          end
+        end
+      end
+
+      def up()
+        if state == "shut off" then
+          @@domain.create
+        end
+      end
     end
   end
 end

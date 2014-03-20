@@ -78,6 +78,38 @@ module Infradash
       halt 404
     end
 
+    post '/domain/:name/down' do
+      @hypervisors.each do |host|
+        host.connect do |hypervisor| 
+          domain = hypervisor.get(params[:name])
+          unless domain.nil? then
+
+            domain.down(params.has_key?("force"))
+            return
+
+          end
+        end
+      end
+
+      halt 404
+    end
+
+    post '/domain/:name/up' do
+      @hypervisors.each do |host|
+        host.connect do |hypervisor| 
+          domain = hypervisor.get(params[:name])
+          unless domain.nil? then
+
+            domain.up
+            return
+
+          end
+        end
+      end
+
+      halt 404
+    end
+
     run! if app_file = $0
   end
 end
