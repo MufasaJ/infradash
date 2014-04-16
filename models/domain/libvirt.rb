@@ -55,7 +55,7 @@ module Infradash
       def down(force = false)
         if state != "shut off" then
           if force then
-            @@domain.destroy
+            @domain.destroy
           else
             @domain.shutdown(0)
           end
@@ -64,7 +64,7 @@ module Infradash
 
       def up()
         if state == "shut off" then
-          @@domain.create
+          @domain.create
         end
       end
     end
