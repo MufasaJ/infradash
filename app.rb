@@ -110,6 +110,6 @@ module Infradash
       halt 404
     end
 
-    run! if app_file = $0
+    run! port: 4567, bind: '0.0.0.0' if app_file = $0
   end
 end
